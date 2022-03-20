@@ -21,14 +21,14 @@ func (v Vec[T]) AppendAll(items ...T) Vec[T] {
 	return v
 }
 
-func (v Vec[T]) AppendIter(it Iterable[T]) Vec[T] {
+func (v Vec[T]) AppendIter(it Iterator[T]) Vec[T] {
 	for i, ok := it(); ok; i, ok = it() {
 		v = append(v, i)
 	}
 	return v
 }
 
-func (v Vec[T]) Iter() Iterable[T] {
+func (v Vec[T]) Iter() Iterator[T] {
 	current := 0
 	return func() (T, bool) {
 		if current < len(v) {
@@ -39,7 +39,7 @@ func (v Vec[T]) Iter() Iterable[T] {
 	}
 }
 
-func (v Vec[T]) ReverseIter() Iterable[T] {
+func (v Vec[T]) ReverseIter() Iterator[T] {
 	current := len(v)
 	return func() (T, bool) {
 		if current > 0 {

@@ -1,8 +1,8 @@
 package collection
 
-type Iterable[T any] func() (T, bool)
+type Iterator[T any] func() (T, bool)
 
-func (it Iterable[T]) Any(test func(item T) bool) bool {
+func (it Iterator[T]) Any(test func(item T) bool) bool {
 	for i, ok := it(); ok; i, ok = it() {
 		if test(i) {
 			return true
@@ -11,7 +11,7 @@ func (it Iterable[T]) Any(test func(item T) bool) bool {
 	return false
 }
 
-func (it Iterable[T]) Collect() Vec[T] {
+func (it Iterator[T]) Collect() Vec[T] {
 	var vec Vec[T]
 	for i, ok := it(); ok; i, ok = it() {
 		vec = append(vec, i)
@@ -19,7 +19,7 @@ func (it Iterable[T]) Collect() Vec[T] {
 	return vec
 }
 
-func (it Iterable[T]) Every(test func(item T) bool) bool {
+func (it Iterator[T]) Every(test func(item T) bool) bool {
 	for i, ok := it(); ok; i, ok = it() {
 		if !test(i) {
 			return false
@@ -28,7 +28,7 @@ func (it Iterable[T]) Every(test func(item T) bool) bool {
 	return true
 }
 
-func (it Iterable[T]) Filter(test func(item T) bool) Iterable[T] {
+func (it Iterator[T]) Filter(test func(item T) bool) Iterator[T] {
 	return func() (T, bool) {
 		for i, ok := it(); ok; i, ok = it() {
 			if test(i) {
@@ -39,7 +39,7 @@ func (it Iterable[T]) Filter(test func(item T) bool) Iterable[T] {
 	}
 }
 
-func (it Iterable[T]) Find(test func(item T) bool) (T, bool) {
+func (it Iterator[T]) Find(test func(item T) bool) (T, bool) {
 	for i, ok := it(); ok; i, ok = it() {
 		if test(i) {
 			return i, ok
@@ -48,7 +48,7 @@ func (it Iterable[T]) Find(test func(item T) bool) (T, bool) {
 	return *new(T), false
 }
 
-func (it Iterable[T]) FollowedBy(other Iterable[T]) Iterable[T] {
+func (it Iterator[T]) FollowedBy(other Iterator[T]) Iterator[T] {
 	other_turn := false
 	return func() (T, bool) {
 		if other_turn {
@@ -62,13 +62,13 @@ func (it Iterable[T]) FollowedBy(other Iterable[T]) Iterable[T] {
 	}
 }
 
-func (it Iterable[T]) ForEach(action func(item T)) {
+func (it Iterator[T]) ForEach(action func(item T)) {
 	for i, ok := it(); ok; i, ok = it() {
 		action(i)
 	}
 }
 
-func (it Iterable[T]) Skip(count int) Iterable[T] {
+func (it Iterator[T]) Skip(count int) Iterator[T] {
 	skipped := false
 	return func() (T, bool) {
 		if skipped {
@@ -85,7 +85,7 @@ func (it Iterable[T]) Skip(count int) Iterable[T] {
 	}
 }
 
-func (it Iterable[T]) Take(count int) Iterable[T] {
+func (it Iterator[T]) Take(count int) Iterator[T] {
 	taken := 0
 	return func() (T, bool) {
 		if taken >= count {
@@ -100,6 +100,6 @@ func (it Iterable[T]) Take(count int) Iterable[T] {
 	}
 }
 
-func (it Iterable[T]) Reverse() Iterable[T] {
+func (it Iterator[T]) Reverse() Iterator[T] {
 	return it.Collect().ReverseIter()
 }
