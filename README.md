@@ -35,6 +35,9 @@ func main() {
 // len=5, cap=8, indexed=str1, sliced=[str3 str4]
 ```
 
+The most noticable method of `Vec` is `Iter` (or `ReverseIter`) which returns a lazy iterator over the
+elements of the slice. Check below.
+
 ---
 
 `collection.Iterator[T]` is a lazy iterator over a list of values of type `T`.
