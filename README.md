@@ -1,3 +1,4 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/isgj/collection.svg)](https://pkg.go.dev/github.com/isgj/collection)
 # collection
 Generic go structures
 
