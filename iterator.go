@@ -109,6 +109,18 @@ func (it Iterator[T]) Skip(count int) Iterator[T] {
 	}
 }
 
+// SkipWhile will skip the first elements that satisfy the test.
+func (it Iterator[T]) SkipWhile(test func(item T) bool) Iterator[T] {
+	skipped := false
+	return func() (T, bool) {
+		if !skipped {
+			skipped = true
+			return it.Find(func(item T) bool { return !test(item) })
+		}
+		return it()
+	}
+}
+
 // Take will yield at most the first `count` values.
 func (it Iterator[T]) Take(count int) Iterator[T] {
 	taken := 0
@@ -121,6 +133,21 @@ func (it Iterator[T]) Take(count int) Iterator[T] {
 			return i, ok
 		}
 		taken = count
+		return *new(T), false
+	}
+}
+
+// TakeWhile will stop at the first value that does not satisfy the test.
+func (it Iterator[T]) TakeWhile(test func(item T) bool) Iterator[T] {
+	stopped := false
+	return func() (T, bool) {
+		if stopped {
+			return *new(T), false
+		}
+		if i, ok := it(); ok && test(i) {
+			return i, ok
+		}
+		stopped = true
 		return *new(T), false
 	}
 }
