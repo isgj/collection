@@ -91,4 +91,4 @@ func main() {
 ### TODO
 - [ ] Add documentation
 - [ ] Add tests
-- [ ] Add more structures (`Set` first)
+- [ ] Add more structures
