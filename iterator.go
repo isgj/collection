@@ -152,6 +152,17 @@ func (it Iterator[T]) TakeWhile(test func(item T) bool) Iterator[T] {
 	}
 }
 
+// Tap will run `action` with every value that will pass through the iterator.
+func (it Iterator[T]) Tap(action func(item T)) Iterator[T] {
+	return func() (T, bool) {
+		i, ok := it()
+		if ok {
+			action(i)
+		}
+		return i, ok
+	}
+}
+
 // Reverse will consume the iterator, collect the values in a `Vec` and iterate in reverse those values.
 // Since `Reverse` will consume the iterator and allocate a `Vec`, when possible use `Vec.ReverseIter`.
 func (it Iterator[T]) Reverse() Iterator[T] {
