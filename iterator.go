@@ -6,6 +6,9 @@ package collection
 // When the second returned value is `false` means the value is not valid.
 // In this case the zero value of the type `T` is returned and it should not be consumed.
 // Consecutive calls after the first time `false` is returned, should return the same values.
+//
+// Iterator is not limited to the structures defined in this package. The source of the iterated values can be anything.
+// Ex: think of iterating over the lines of a file without having to load the whole file into memory, or iterating over the cursor of a database.
 type Iterator[T any] func() (T, bool)
 
 // Any returns true as soon as a value satisfies the test, false otherwise.

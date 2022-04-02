@@ -9,7 +9,7 @@ go get github.com/isgj/collection
 
 ## Usage
 
-`collection.Vec[T]` implemented as a native go slice `[]T`. Because of this, other than the few currently
+[collection.Vec[T]](https://pkg.go.dev/github.com/isgj/collection#Vec) implemented as a native go slice `[]T`. Because of this, other than the few currently
 implemented methods you can use `Vec` also as a regular slice.
 
 ```go
@@ -41,7 +41,7 @@ elements of the slice. Check below.
 
 ---
 
-`collection.Iterator[T]` is a lazy iterator over a list of values of type `T`.
+[collection.Iterator[T]](https://pkg.go.dev/github.com/isgj/collection#Iterator) is a lazy iterator over a list of values of type `T`.
 
 ```go
 package main
@@ -86,9 +86,8 @@ func main() {
 
 ---
 
-`collection.Map` ...
+[collection.Map](https://pkg.go.dev/github.com/isgj/collection#Map)
 
-### TODO
-- [ ] Add documentation
-- [ ] Add tests
-- [ ] Add more structures
+[collection.Set](https://pkg.go.dev/github.com/isgj/collection#Set)
+
+[collection.DLList](https://pkg.go.dev/github.com/isgj/collection#DLList)
