@@ -47,6 +47,11 @@ func (v Vec[T]) Iter() Iterator[T] {
 	}
 }
 
+// IsEmpty checks if the slice has no entries.
+func (v Vec[T]) IsEmpty() bool {
+	return len(v) == 0
+}
+
 // ReverseIter will return a lazy iterator over the values of the slice in reverse order.
 func (v Vec[T]) ReverseIter() Iterator[T] {
 	current := len(v)
