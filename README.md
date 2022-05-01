@@ -1,8 +1,11 @@
 [![Go Reference](https://pkg.go.dev/badge/github.com/isgj/collection.svg)](https://pkg.go.dev/github.com/isgj/collection)
+
 # collection
+
 Generic go structures
 
 ## Install
+
 ```
 go get github.com/isgj/collection
 ```
@@ -91,3 +94,5 @@ func main() {
 [collection.Set](https://pkg.go.dev/github.com/isgj/collection#Set)
 
 [collection.DLList](https://pkg.go.dev/github.com/isgj/collection#DLList)
+
+[collection.LRUCache](https://pkg.go.dev/github.com/isgj/collection#LRUCache)
