@@ -147,13 +147,13 @@ func TestPushFront(t *testing.T) {
 	}
 }
 
-func TestSize(t *testing.T) {
+func TestLen(t *testing.T) {
 	var queue DLList[int]
 	queue.PushBack(1)
 	queue.PushBack(2)
 	queue.PushBack(3)
-	s := queue.Size()
+	s := queue.Len()
 	if s != 3 {
-		t.Errorf("queue.size = %d, want %d", s, 3)
+		t.Errorf("queue.len = %d, want %d", s, 3)
 	}
 }

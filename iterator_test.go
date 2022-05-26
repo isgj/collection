@@ -60,7 +60,7 @@ func TestFind(t *testing.T) {
 	if i != 2 {
 		t.Errorf("expected 2, got %d", i)
 	}
-	i, ok = a.Iter().Find(func(i int) bool { return i == 4 })
+	_, ok = a.Iter().Find(func(i int) bool { return i == 4 })
 	if ok {
 		t.Errorf("expected false, got true")
 	}

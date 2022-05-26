@@ -62,6 +62,11 @@ func (ll *DLList[T]) Iter() Iterator[T] {
 	}
 }
 
+// Len returns the number of elements in the list.
+func (ll *DLList[T]) Len() int {
+	return ll.size
+}
+
 // PopBack removes the last element from the list.
 // If the second return value is false, the list is empty and the zero value is returned.
 func (ll *DLList[T]) PopBack() (T, bool) {
@@ -140,6 +145,8 @@ func (ll *DLList[T]) ReverseIter() Iterator[T] {
 }
 
 // Size returns the number of elements in the list.
+//
+// Deprecated: Size is deprecated, use Len instead.
 func (ll *DLList[T]) Size() int {
 	return ll.size
 }
