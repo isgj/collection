@@ -201,3 +201,40 @@ func TestCacheReverseIterVales(t *testing.T) {
 		}
 	}
 }
+
+func TestCacheIsEmpty(t *testing.T) {
+	cache := NewCache[int, int](3)
+	if !cache.IsEmpty() {
+		t.Errorf("cache.IsEmpty() = %t, want %t", cache.IsEmpty(), true)
+	}
+	cache.Put(1, 4)
+	if cache.IsEmpty() {
+		t.Errorf("cache.IsEmpty() = %t, want %t", cache.IsEmpty(), false)
+	}
+}
+
+func TestCacheIsFullWithSize(t *testing.T) {
+	cache := NewCache[int, int](3)
+	if cache.IsFull() {
+		t.Errorf("cache.IsFull() = %t, want %t", cache.IsFull(), false)
+	}
+	cache.Put(1, 4)
+	cache.Put(2, 5)
+	cache.Put(3, 6)
+	if !cache.IsFull() {
+		t.Errorf("cache.IsFull() = %t, want %t", cache.IsFull(), true)
+	}
+}
+
+func TestCacheIsFullWithoutSize(t *testing.T) {
+	cache := NewCache[int, int](0)
+	if cache.IsFull() {
+		t.Errorf("cache.IsFull() = %t, want %t", cache.IsFull(), false)
+	}
+	cache.Put(1, 4)
+	cache.Put(2, 5)
+	cache.Put(3, 6)
+	if cache.IsFull() {
+		t.Errorf("cache.IsFull() = %t, want %t", cache.IsFull(), false)
+	}
+}

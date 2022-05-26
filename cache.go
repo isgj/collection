@@ -69,6 +69,16 @@ func (c *LRUCache[K, V]) IterVals() Iterator[V] {
 	}
 }
 
+// IsFull returns true if the cache is full.
+func (c *LRUCache[K, V]) IsFull() bool {
+	return len(c.cached) == c.size	&& c.size > 0
+}
+
+// IsEmpty returns true if the cache is empty.
+func (c *LRUCache[K, V]) IsEmpty() bool {
+	return len(c.cached) == 0
+}
+
 // Len returns the number of items in the cache.
 func (c *LRUCache[K, V]) Len() int {
 	return len(c.cached)
