@@ -43,6 +43,32 @@ func (c *LRUCache[K, V]) GetOrAdd(key K, f func() V) V {
 	return val
 }
 
+// IterKeys returns an iterator over the keys in the cache.
+// The keys are returned from the least recently used to the last one.
+func (c *LRUCache[K, V]) IterKeys() Iterator[K] {
+	cur_node := c.head
+	return func() (k K, ok bool) {
+		if cur_node == nil {
+			return k, false
+		}
+		k, cur_node = cur_node.key, cur_node.next
+		return k, true
+	}
+}
+
+// IterVals returns an iterator over the values in the cache.
+// The values are returned from the least recently used to the last one.
+func (c *LRUCache[K, V]) IterVals() Iterator[V] {
+	cur_node := c.head
+	return func() (v V, ok bool) {
+		if cur_node == nil {
+			return v, false
+		}
+		v, cur_node = cur_node.val, cur_node.next
+		return v, true
+	}
+}
+
 // Len returns the number of items in the cache.
 func (c *LRUCache[K, V]) Len() int {
 	return len(c.cached)
@@ -67,6 +93,32 @@ func (c *LRUCache[K, V]) Put(key K, val V) {
 		return
 	}
 	c.moveToHead(node)
+}
+
+// ReverseIterKeys returns an iterator over the keys in the cache.
+// The keys are returned from the last used to the least recently one.
+func (c *LRUCache[K, V]) ReverseIterKeys() Iterator[K] {
+	cur_node := c.tail
+	return func() (k K, ok bool) {
+		if cur_node == nil {
+			return k, false
+		}
+		k, cur_node = cur_node.key, cur_node.prev
+		return k, true
+	}
+}
+
+// IterVals returns an iterator over the values in the cache.
+// The values are returned from the last used to the least recently one.
+func (c *LRUCache[K, V]) ReverseIterVals() Iterator[V] {
+	cur_node := c.tail
+	return func() (v V, ok bool) {
+		if cur_node == nil {
+			return v, false
+		}
+		v, cur_node = cur_node.val, cur_node.prev
+		return v, true
+	}
 }
 
 func (c *LRUCache[K, V]) moveToHead(node *cnode[K, V]) {

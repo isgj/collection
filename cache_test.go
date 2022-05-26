@@ -1,6 +1,8 @@
 package collection
 
-import "testing"
+import (
+	"testing"
+)
 
 func TestNewCacheWithLimit(t *testing.T) {
 	cache := NewCache[int, int](3)
@@ -145,5 +147,57 @@ func TestCachePutLastUsed(t *testing.T) {
 	}
 	if cache.Len() != 3 {
 		t.Errorf("cache.Len() = %d, want %d", cache.Len(), 3)
+	}
+}
+
+func TestCacheIterKeys(t *testing.T) {
+	cache := NewCache[int, int](3)
+	cache.Put(1, 4)
+	cache.Put(2, 5)
+	cache.Put(3, 6)
+	keys := cache.IterKeys().Collect()
+	for ind, v := range []int{3, 2, 1} {
+		if keys[ind] != v {
+			t.Errorf("cache.IterKeys()[%d] = %d, want %d", ind, keys[ind], v)
+		}
+	}
+}
+
+func TestCacheIterVales(t *testing.T) {
+	cache := NewCache[int, int](3)
+	cache.Put(1, 4)
+	cache.Put(2, 5)
+	cache.Put(3, 6)
+	keys := cache.IterVals().Collect()
+	for ind, v := range []int{6, 5, 4} {
+		if keys[ind] != v {
+			t.Errorf("cache.IterVals()[%d] = %d, want %d", ind, keys[ind], v)
+		}
+	}
+}
+
+func TestCacheReverseIterKeys(t *testing.T) {
+	cache := NewCache[int, int](3)
+	cache.Put(1, 4)
+	cache.Put(2, 5)
+	cache.Put(3, 6)
+	keys := cache.ReverseIterKeys().Collect()
+	for ind, v := range []int{1, 2, 3} {
+		if keys[ind] != v {
+			t.Errorf("cache.ReverseIterKeys()[%d] = %d, want %d", ind, keys[ind], v)
+		}
+	}
+}
+
+func TestCacheReverseIterVales(t *testing.T) {
+	cache := NewCache[int, int](3)
+	cache.Put(1, 4)
+	cache.Put(2, 5)
+	cache.Put(3, 6)
+	keys := cache.ReverseIterVals().Collect()
+	for ind, v := range []int{4, 5, 6} {
+		if keys[ind] != v {
+			t.Errorf("cache.ReverseIterVals()[%d] = %d, want %d", ind, keys[ind], v)
+		}
 	}
 }
